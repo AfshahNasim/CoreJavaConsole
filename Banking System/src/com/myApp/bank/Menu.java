@@ -100,20 +100,22 @@ public class Menu {
 				System.out.println("\t1. Withdraw amount");
 				System.out.println("\t2. Deposit amount");
 				System.out.println("\t3. Check Balance");
-				System.out.println("\t4. Back to Main Menu");
-				System.out.println("\t5. Exit");
+				System.out.println("\t4. Mini Statement");
+				System.out.println("\t5. Back to Main Menu");
+				System.out.println("\t6. Exit");
 				System.out.print("\n\tEnter your Choice:");
 				choice = scan.nextInt();
 				}
-			while(!validateChoice(4));
+			while(!validateChoice(6));
 			
 			switch(choice)
 			{
 			case 1 : withdrawFromAccount(); break;
 			case 2 : depositIntoAccount();break;
 			case 3 : checkBalance();break;
-			case 4 : showMainMenu();break;
-			case 5 : System.out.print("\n\tThank You for using ATM Service..!!"); scan.close(); System.exit(0); 
+			case 4 : getTransactions();break;
+			case 5 : showMainMenu();break;
+			case 6 : System.out.print("\n\tThank You for using ATM Service..!!"); scan.close(); System.exit(0); 
 			}
 		}catch(InputMismatchException e)
 		{
@@ -121,6 +123,14 @@ public class Menu {
 			scan.nextLine(); //clear the invalid input from the scanner if exception occurs 
 			displayToDo();	//call the method again to continue the menus
 		}
+		
+	}
+
+	/*	Function to get transaction history	*/
+	public void getTransactions() {
+		
+		accountService.getTransactionHistory();
+		displayToDo();
 		
 	}
 

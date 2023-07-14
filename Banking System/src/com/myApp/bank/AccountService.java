@@ -1,6 +1,10 @@
 package com.myApp.bank;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AccountService implements IAtm {
@@ -36,21 +40,39 @@ public class AccountService implements IAtm {
 		this.pinNum = pinNum;
 	}
 	
+	/*	Function to get transaction history of account	*/
+	public void getTransactionHistory()
+	{
+		List<AccountTransaction> translist = new ArrayList<AccountTransaction>();
+		translist = account.getTransactions();
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|\tTRANSACTION_DATE\t|\tTRANSACTION_TYPE\t|\tAMOUNT\t|\tAVAILABLE_BALANCE\t|");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		for(AccountTransaction list	: translist)
+		{
+			System.out.print("\t"+list.getDatetime()+"\t\t"+list.getTransactionType()+"\t\t"+list.getAmount());
+			System.out.println();
+		}
+		System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t"+account.getBalance());
+	}
+	
 	/*	Function to withdraw Amount	*/
 	public void withdrawAmount(double amount) 
 	{
-		
+		AccountTransaction trans = new AccountTransaction(LocalDateTime.now().format(DateTimeFormatter.ofPattern("DD-MM-YYYY HH:mm:ss")), "Debit", amount);
 		double finalamount = getAccountBalance()- amount;
 		account.setBalance(finalamount);
+		account.setTransactions(trans);
 		System.out.println("Your account is debited with : "+amount);
 	}
-	
+
 	/*	Function to deposit Amount	*/
 	public void depositAmount(double amount)
 	{
-		
+		AccountTransaction trans = new AccountTransaction(LocalDateTime.now().format(DateTimeFormatter.ofPattern("DD-MM-YYYY HH:mm:ss")), "Credit", amount);
 		double finalamount = getAccountBalance()+ amount;
 		account.setBalance(finalamount);
+		account.setTransactions(trans);
 		System.out.println("Your account is credited with : "+amount);
 	}
 	
