@@ -31,11 +31,12 @@ public class AccountService implements IAtm {
 		return instance;
 	}
 	
-
+	/* Function to set customer name	*/
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-
+	
+	/*	Function to set Pin	*/
 	public void setPinNum(int pinNum) {
 		this.pinNum = pinNum;
 	}
