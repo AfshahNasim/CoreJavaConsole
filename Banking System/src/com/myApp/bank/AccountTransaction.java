@@ -1,8 +1,5 @@
 package com.myApp.bank;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class AccountTransaction {
 
 	
